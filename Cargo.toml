@@ -11,13 +11,17 @@ bench = false
 
 [dependencies]
 embassy-executor = { version = "0.10.0", features = ["platform-cortex-m", "executor-thread"] }
+embassy-futures = "0.1.2"
 embassy-rp = { version = "0.10.0", features = [ "rp2040", "time-driver", "critical-section-impl"] }
+embassy-sync = "0.8.0"
 embassy-time = "0.5.1"
+embassy-usb = "0.6.0"
 cortex-m = "0.7.7"
 cortex-m-rt = "0.7.5"
 embedded-graphics = "0.8.1"
 panic-halt = "1.0.0"
 ssd1306 = "0.10.0"
+usbd-hid = "0.10.0"
 
 [profile.release]
 debug = 2
