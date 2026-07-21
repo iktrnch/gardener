@@ -7,7 +7,7 @@ use embassy_rp::i2c::{Config as I2cConfig, I2c};
 use embassy_rp::rom_data::reset_to_usb_boot;
 use embassy_time::{Duration, Instant, Timer};
 use embedded_graphics::{
-    mono_font::{MonoTextStyle, ascii::FONT_6X10},
+    mono_font::{MonoTextStyle, ascii::FONT_6X13},
     pixelcolor::BinaryColor,
     prelude::*,
     text::{Baseline, Text},
@@ -22,7 +22,7 @@ async fn main(_spawner: Spawner) {
 
     let i2c = I2c::new_blocking(p.I2C0, p.PIN_1, p.PIN_0, I2cConfig::default());
     let interface = I2CDisplayInterface::new(i2c);
-    let mut display = Ssd1306::new(interface, DisplaySize128x64, DisplayRotation::Rotate0)
+    let mut display = Ssd1306::new(interface, DisplaySize128x32, DisplayRotation::Rotate0)
         .into_buffered_graphics_mode();
     let _ = display.init();
 
@@ -31,7 +31,7 @@ async fn main(_spawner: Spawner) {
     let button_3 = Input::new(p.PIN_3, Pull::Up);
     let button_4 = Input::new(p.PIN_4, Pull::Up);
 
-    let text_style = MonoTextStyle::new(&FONT_6X10, BinaryColor::On);
+    let text_style = MonoTextStyle::new(&FONT_6X13, BinaryColor::On);
     let mut previous_pressed = [false; 3];
     let mut press_order = [0_u64; 3];
     let mut next_press_order = 0_u64;
@@ -88,7 +88,7 @@ async fn main(_spawner: Spawner) {
                 _ => "No button",
             };
 
-            let _ = Text::with_baseline(label, Point::zero(), text_style, Baseline::Top)
+            let _ = Text::with_baseline(label, Point::new(0, 4), text_style, Baseline::Top)
                 .draw(&mut display);
             let _ = display.flush();
             displayed_button = Some(selected_button);
