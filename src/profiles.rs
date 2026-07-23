@@ -2,7 +2,7 @@ use crate::domain::{HidOutput, Keystrokes, Profile, State, StateType, keycodes, 
 
 /// Moonflower, Sunflower, Wild Rose, Sugar Cane
 const ECLIPSE_ROSE_CANE: Profile = Profile {
-    name: "Eclps/Rse/Cane",
+    name: "Eclipse/Rose/Cane",
     idle: State::new(StateType::Idle, HidOutput::NONE),
     left: State::new(
         StateType::Left,
@@ -14,23 +14,17 @@ const ECLIPSE_ROSE_CANE: Profile = Profile {
     ),
     transition_lr: Some(State::new(
         StateType::Right,
-        HidOutput::new(
-            Keystrokes::two(keycodes::W, keycodes::D),
-            mouse_buttons::NONE,
-        ),
+        HidOutput::new(Keystrokes::one(keycodes::W), mouse_buttons::NONE),
     )),
     transition_rl: Some(State::new(
         StateType::Left,
-        HidOutput::new(
-            Keystrokes::two(keycodes::W, keycodes::A),
-            mouse_buttons::NONE,
-        ),
+        HidOutput::new(Keystrokes::one(keycodes::D), mouse_buttons::NONE),
     )),
 };
 
 /// Nether Wart, Wheat, Potato, Carrot
 const WARTS_AND_CROPS: Profile = Profile {
-    name: "Wrts/Crps",
+    name: "Warts/Crops",
     idle: State::new(StateType::Idle, HidOutput::NONE),
     left: State::new(
         StateType::Left,
@@ -44,5 +38,24 @@ const WARTS_AND_CROPS: Profile = Profile {
     transition_rl: None,
 };
 
+/// Mushroom
+const MUSHROOM: Profile = Profile {
+    name: "Shrooms",
+    idle: State::new(StateType::Idle, HidOutput::NONE),
+    left: State::new(
+        StateType::Left,
+        HidOutput::new(Keystrokes::one(keycodes::A), mouse_buttons::LEFT),
+    ),
+    right: State::new(
+        StateType::Right,
+        HidOutput::new(Keystrokes::one(keycodes::D), mouse_buttons::LEFT),
+    ),
+    transition_lr: Some(State::new(
+        StateType::Right,
+        HidOutput::new(Keystrokes::one(keycodes::S), mouse_buttons::LEFT),
+    )),
+    transition_rl: None,
+};
+
 /// Immutable profile configuration. Mutable runtime state lives only in the controller.
-pub static PROFILES: [Profile; 2] = [ECLIPSE_ROSE_CANE, WARTS_AND_CROPS];
+pub static PROFILES: [Profile; 3] = [ECLIPSE_ROSE_CANE, WARTS_AND_CROPS, MUSHROOM];

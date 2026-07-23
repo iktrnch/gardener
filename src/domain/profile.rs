@@ -65,6 +65,7 @@ impl Keystrokes {
         }
     }
 
+    #[allow(unused)]
     pub const fn two(first: u8, second: u8) -> Self {
         Self {
             modifiers: 0,
